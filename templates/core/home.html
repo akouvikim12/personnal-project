@@ -1,0 +1,56 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block content %}
+<section class="hero">
+    <div class="container hero-inner">
+        <h1>{% trans "Accompagnement et suivi qualité pour les laboratoires" %}</h1>
+        <p class="hero-subtitle">
+            {% trans "Améliorez la conformité, la fiabilité et la performance de votre laboratoire grâce à un accompagnement personnalisé, conforme aux exigences ISO 15189 / ISO 17025." %}
+        </p>
+        <div class="hero-actions">
+            <a href="{% url 'core:book_appointment' %}" class="btn btn-primary">{% trans "Prendre rendez-vous" %}</a>
+            <a href="{% url 'core:services' %}" class="btn btn-secondary">{% trans "Découvrir les services" %}</a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">{% trans "Nos prestations" %}</h2>
+        <div class="grid grid-3">
+            {% for service in services %}
+            <div class="card">
+                <h3>{{ service.name }}</h3>
+                <p>{{ service.description|truncatewords:20 }}</p>
+                <p class="card-meta">
+                    {% if service.price_on_quote %}{% trans "Sur devis" %}{% else %}{{ service.price }} €{% endif %}
+                    · {{ service.duration_minutes }} min
+                </p>
+            </div>
+            {% empty %}
+            <p>{% trans "Les prestations seront bientôt disponibles." %}</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container quote-block">
+        <blockquote>
+            {% trans "La qualité n'est pas seulement une exigence, c'est un engagement." %}
+        </blockquote>
+        <p>
+            {% trans "Nous accompagnons les laboratoires dans la mise en place, le suivi et l'amélioration de leur système qualité afin de garantir des résultats fiables, précis et conformes aux exigences applicables." %}
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container stats-grid">
+        <div class="stat"><span class="stat-num">15189</span><span>{% trans "Accompagnement ISO 15189" %}</span></div>
+        <div class="stat"><span class="stat-num">100%</span><span>{% trans "Confidentialité RGPD" %}</span></div>
+        <div class="stat"><span class="stat-num">48h</span><span>{% trans "Délai de réponse" %}</span></div>
+        <div class="stat"><span class="stat-num">Int'l</span><span>{% trans "Laboratoires accompagnés partout dans le monde" %}</span></div>
+    </div>
+</section>
+{% endblock %}

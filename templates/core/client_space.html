@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Mon espace" %} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>{% trans "Mon espace" %}</h1>
+        <p>{% trans "Suivi de vos rendez-vous et échanges avec notre équipe qualité." %}</p>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <table class="table">
+            <tr><th>{% trans "Service" %}</th><th>{% trans "Date" %}</th><th>{% trans "Mode" %}</th><th>{% trans "Statut" %}</th></tr>
+            {% for appt in appointments %}
+            <tr>
+                <td>{{ appt.service }}</td>
+                <td>{{ appt.requested_date }} {{ appt.requested_time }}</td>
+                <td>{{ appt.get_mode_display }}</td>
+                <td><span class="badge badge-{{ appt.status }}">{{ appt.get_status_display }}</span></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">{% trans "Vous n'avez pas encore de rendez-vous." %}</td></tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'core:book_appointment' %}" class="btn btn-primary" style="margin-top:1.5rem;">{% trans "Prendre un nouveau rendez-vous" %}</a>
+    </div>
+</section>
+{% endblock %}

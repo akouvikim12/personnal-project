@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Nos services" %} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>{% trans "Nos services" %}</h1>
+        <p>{% trans "Audit, accompagnement, formation et suivi qualité pour laboratoires de biologie médicale." %}</p>
+    </div>
+</section>
+<section class="section">
+    <div class="container grid grid-2">
+        {% for service in services %}
+        <div class="card card-lg">
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.description }}</p>
+            <ul class="card-tags">
+                <li>{{ service.duration_minutes }} {% trans "min" %}</li>
+                {% if service.price_on_quote %}<li>{% trans "Sur devis" %}</li>{% elif service.price %}<li>{{ service.price }} €</li>{% endif %}
+                {% if service.is_remote_available %}<li>{% trans "À distance" %}</li>{% endif %}
+                {% if service.is_onsite_available %}<li>{% trans "Sur place" %}</li>{% endif %}
+            </ul>
+            <a href="{% url 'core:book_appointment' %}?service={{ service.id }}" class="btn btn-primary btn-sm">{% trans "Réserver ce service" %}</a>
+        </div>
+        {% empty %}
+        <p>{% trans "Aucun service disponible pour le moment." %}</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

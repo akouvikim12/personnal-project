@@ -1,0 +1,80 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ SITE_NAME }}{% endblock %} — {{ SITE_TAGLINE }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="{% url 'core:home' %}" class="logo">
+                <span class="logo-mark">LQ</span>
+                <span class="logo-text">{{ SITE_NAME }}</span>
+            </a>
+            <nav class="main-nav">
+                <a href="{% url 'core:home' %}">{% trans "Accueil" %}</a>
+                <a href="{% url 'core:services' %}">{% trans "Services" %}</a>
+                <a href="{% url 'core:about' %}">{% trans "À propos" %}</a>
+                <a href="{% url 'core:contact' %}">{% trans "Contact" %}</a>
+                {% if user.is_authenticated %}
+                    {% if user.is_quality_staff %}
+                        <a href="{% url 'core:dashboard' %}">{% trans "Tableau de bord" %}</a>
+                    {% else %}
+                        <a href="{% url 'core:client_space' %}">{% trans "Mon espace" %}</a>
+                    {% endif %}
+                    <a href="{% url 'core:logout' %}">{% trans "Déconnexion" %}</a>
+                {% else %}
+                    <a href="{% url 'core:login' %}">{% trans "Connexion" %}</a>
+                {% endif %}
+            </nav>
+            <a href="{% url 'core:book_appointment' %}" class="btn btn-primary btn-sm">{% trans "Prendre rendez-vous" %}</a>
+        </div>
+    </header>
+
+    {% if messages %}
+    <div class="container">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div>
+                <span class="logo-mark">LQ</span> {{ SITE_NAME }}
+                <p>{{ SITE_TAGLINE }}</p>
+            </div>
+            <div>
+                <p>{% trans "Contact" %}</p>
+                <p>{{ SITE_EMAIL }}</p>
+                <p>{{ SITE_PHONE }}</p>
+            </div>
+            <div>
+                <p>{% trans "Langue" %}</p>
+                <form action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.path }}">
+                    <select name="language" onchange="this.form.submit()">
+                        {% get_current_language as CURRENT_LANGUAGE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% for code, name in LANGUAGES %}
+                        <option value="{{ code }}" {% if code == CURRENT_LANGUAGE %}selected{% endif %}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="container">
+            <p class="copyright">&copy; {% now "Y" %} {{ SITE_NAME }}. {% trans "Tous droits réservés." %}</p>
+        </div>
+    </footer>
+</body>
+</html>

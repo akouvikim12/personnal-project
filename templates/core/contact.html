@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Contact" %} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>{% trans "Contact" %}</h1>
+    </div>
+</section>
+<section class="section">
+    <div class="container grid grid-2">
+        <form method="post" class="form-card">
+            {% csrf_token %}
+            <label>{% trans "Nom" %}<input type="text" name="name" required></label>
+            <label>{% trans "E-mail" %}<input type="email" name="email" required></label>
+            <label>{% trans "Message" %}<textarea name="message" rows="5" required></textarea></label>
+            <button type="submit" class="btn btn-primary">{% trans "Envoyer" %}</button>
+        </form>
+        <div class="contact-info">
+            <p><strong>{% trans "E-mail" %} :</strong> {{ SITE_EMAIL }}</p>
+            <p><strong>{% trans "Téléphone" %} :</strong> {{ SITE_PHONE }}</p>
+            <p><strong>{% trans "Horaires" %} :</strong> {% trans "Lun–Ven, 9h–18h (UTC)" %}</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

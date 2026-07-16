@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Tableau de bord qualité" %} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>{% trans "Tableau de bord qualité" %}</h1>
+        <p>{% trans "Vue synthétique de l'assurance qualité — usage interne." %}</p>
+    </div>
+</section>
+<section class="section">
+    <div class="container stats-grid">
+        <div class="stat stat-alert"><span class="stat-num">{{ open_nc_count }}</span><span>{% trans "Non-conformités ouvertes" %}</span></div>
+        <div class="stat stat-critical"><span class="stat-num">{{ critical_nc_count }}</span><span>{% trans "Non-conformités critiques" %}</span></div>
+        <div class="stat"><span class="stat-num">{{ upcoming_audits|length }}</span><span>{% trans "Audits planifiés" %}</span></div>
+        <div class="stat"><span class="stat-num">{{ pending_appointments|length }}</span><span>{% trans "Rendez-vous en attente" %}</span></div>
+    </div>
+</section>
+<section class="section grid grid-2">
+    <div class="container">
+        <h2>{% trans "Prochains audits" %}</h2>
+        <table class="table">
+            <tr><th>{% trans "Référence" %}</th><th>{% trans "Type" %}</th><th>{% trans "Date" %}</th></tr>
+            {% for audit in upcoming_audits %}
+            <tr><td>{{ audit.reference }}</td><td>{{ audit.get_audit_type_display }}</td><td>{{ audit.planned_date }}</td></tr>
+            {% empty %}<tr><td colspan="3">{% trans "Aucun audit planifié." %}</td></tr>{% endfor %}
+        </table>
+    </div>
+    <div class="container">
+        <h2>{% trans "Rendez-vous en attente" %}</h2>
+        <table class="table">
+            <tr><th>{% trans "Contact" %}</th><th>{% trans "Service" %}</th><th>{% trans "Date" %}</th></tr>
+            {% for appt in pending_appointments %}
+            <tr><td>{{ appt.contact_name }}</td><td>{{ appt.service }}</td><td>{{ appt.requested_date }}</td></tr>
+            {% empty %}<tr><td colspan="3">{% trans "Aucun rendez-vous en attente." %}</td></tr>{% endfor %}
+        </table>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <p class="form-note">
+            {% trans "Ce tableau de bord résume les données. La gestion détaillée (non-conformités, indicateurs, CIQ/EEQ, documents, équipements) se fait via l'administration Django (/admin/) ou l'API REST (/api/v1/quality/)." %}
+        </p>
+    </div>
+</section>
+{% endblock %}

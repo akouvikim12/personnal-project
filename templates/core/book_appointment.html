@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Prendre rendez-vous" %} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>{% trans "Prendre rendez-vous" %}</h1>
+        <p>{% trans "Décrivez votre besoin, nous vous répondrons sous 48h avec une confirmation par e-mail." %}</p>
+    </div>
+</section>
+<section class="section">
+    <div class="container narrow">
+        <form method="post" class="form-card">
+            {% csrf_token %}
+            <div class="grid grid-2">
+                <label>{% trans "Nom complet" %}<input type="text" name="contact_name" required></label>
+                <label>{% trans "E-mail" %}<input type="email" name="contact_email" required></label>
+                <label>{% trans "Téléphone" %}<input type="tel" name="contact_phone"></label>
+                <label>{% trans "Laboratoire / organisation" %}<input type="text" name="laboratory_name"></label>
+                <label>{% trans "Pays" %}<input type="text" name="country"></label>
+                <label>{% trans "Service souhaité" %}
+                    <select name="service" required>
+                        {% for service in services %}
+                        <option value="{{ service.id }}">{{ service.name }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>{% trans "Date souhaitée" %}<input type="date" name="requested_date" required></label>
+                <label>{% trans "Heure souhaitée" %}<input type="time" name="requested_time" required></label>
+                <label>{% trans "Mode de rendez-vous" %}
+                    <select name="mode" required>
+                        <option value="online">{% trans "En ligne / visioconférence" %}</option>
+                        <option value="phone">{% trans "Téléphone" %}</option>
+                        <option value="onsite">{% trans "Sur place" %}</option>
+                    </select>
+                </label>
+            </div>
+            <label>{% trans "Votre besoin" %}
+                <textarea name="message" rows="4" placeholder="{% trans 'Décrivez brièvement votre besoin...' %}"></textarea>
+            </label>
+            <p class="form-note">{% trans "Merci de ne transmettre aucune donnée d'analyse ou information confidentielle via ce formulaire." %}</p>
+            <button type="submit" class="btn btn-primary btn-lg">{% trans "Envoyer ma demande" %}</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
