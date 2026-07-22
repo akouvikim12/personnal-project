@@ -55,58 +55,119 @@ function BookAppointment() {
         </div>
       </section>
       <section className="section">
-        <div className="container narrow">
+        <div className="container">
           {sent && (
             <div className="alert alert-success">
               Votre demande de rendez-vous a bien été enregistrée. Une confirmation vous sera envoyée par e-mail sous 48h.
             </div>
           )}
           {error && <div className="alert alert-error">{error}</div>}
-          <form className="form-card" onSubmit={handleSubmit}>
-            <div className="grid grid-2">
-              <label>Nom complet
-                <input type="text" name="contact_name" value={form.contact_name} onChange={handleChange} required />
+
+          <div className="booking-layout">
+            <form className="form-card" onSubmit={handleSubmit}>
+              <div className="booking-section">
+                <h2 className="booking-section-title">
+                  <span aria-hidden="true">👤</span> Informations personnelles
+                </h2>
+                <div className="grid grid-2">
+                  <label>Nom complet
+                    <input type="text" name="contact_name" value={form.contact_name} onChange={handleChange} required />
+                  </label>
+                  <label>E-mail
+                    <input type="email" name="contact_email" value={form.contact_email} onChange={handleChange} required />
+                  </label>
+                  <label>Téléphone
+                    <input type="tel" name="contact_phone" value={form.contact_phone} onChange={handleChange} />
+                  </label>
+                  <label>Laboratoire / organisation
+                    <input type="text" name="laboratory_name" value={form.laboratory_name} onChange={handleChange} />
+                  </label>
+                  <label>Pays
+                    <input type="text" name="country" value={form.country} onChange={handleChange} />
+                  </label>
+                </div>
+              </div>
+
+              <div className="booking-section">
+                <h2 className="booking-section-title">
+                  <span aria-hidden="true">🔬</span> Service souhaité
+                </h2>
+                <div className="grid grid-2">
+                  <label>Service souhaité
+                    <select name="service" value={form.service} onChange={handleChange} required>
+                      <option value="">-- Choisir --</option>
+                      {services.map((s) => (
+                        <option key={s.id} value={s.id}>{s.name}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>Mode de rendez-vous
+                    <select name="mode" value={form.mode} onChange={handleChange} required>
+                      <option value="online">En ligne / visioconférence</option>
+                      <option value="phone">Téléphone</option>
+                      <option value="onsite">Sur place</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+
+              <div className="booking-section">
+                <h2 className="booking-section-title">
+                  <span aria-hidden="true">📅</span> Date &amp; heure
+                </h2>
+                <div className="grid grid-2">
+                  <label>Date souhaitée
+                    <input type="date" name="requested_date" value={form.requested_date} onChange={handleChange} required />
+                  </label>
+                  <label>Heure souhaitée
+                    <input type="time" name="requested_time" value={form.requested_time} onChange={handleChange} required />
+                  </label>
+                </div>
+              </div>
+
+              <label>Votre besoin
+                <textarea name="message" rows="4" value={form.message} onChange={handleChange} placeholder="Décrivez brièvement votre besoin..." />
               </label>
-              <label>E-mail
-                <input type="email" name="contact_email" value={form.contact_email} onChange={handleChange} required />
-              </label>
-              <label>Téléphone
-                <input type="tel" name="contact_phone" value={form.contact_phone} onChange={handleChange} />
-              </label>
-              <label>Laboratoire / organisation
-                <input type="text" name="laboratory_name" value={form.laboratory_name} onChange={handleChange} />
-              </label>
-              <label>Pays
-                <input type="text" name="country" value={form.country} onChange={handleChange} />
-              </label>
-              <label>Service souhaité
-                <select name="service" value={form.service} onChange={handleChange} required>
-                  <option value="">-- Choisir --</option>
-                  {services.map((s) => (
-                    <option key={s.id} value={s.id}>{s.name}</option>
-                  ))}
-                </select>
-              </label>
-              <label>Date souhaitée
-                <input type="date" name="requested_date" value={form.requested_date} onChange={handleChange} required />
-              </label>
-              <label>Heure souhaitée
-                <input type="time" name="requested_time" value={form.requested_time} onChange={handleChange} required />
-              </label>
-              <label>Mode de rendez-vous
-                <select name="mode" value={form.mode} onChange={handleChange} required>
-                  <option value="online">En ligne / visioconférence</option>
-                  <option value="phone">Téléphone</option>
-                  <option value="onsite">Sur place</option>
-                </select>
-              </label>
-            </div>
-            <label>Votre besoin
-              <textarea name="message" rows="4" value={form.message} onChange={handleChange} placeholder="Décrivez brièvement votre besoin..." />
-            </label>
-            <p className="form-note">Merci de ne transmettre aucune donnée d'analyse ou information confidentielle via ce formulaire.</p>
-            <button type="submit" className="btn btn-primary btn-lg">Envoyer ma demande</button>
-          </form>
+              <p className="form-note">Merci de ne transmettre aucune donnée d'analyse ou information confidentielle via ce formulaire.</p>
+              <button type="submit" className="btn btn-primary btn-lg">Envoyer ma demande</button>
+            </form>
+
+            <aside className="booking-sidebar">
+              <div className="booking-steps-card">
+                <h3 className="booking-sidebar-title">
+                  <span aria-hidden="true">📋</span> Comment ça marche
+                </h3>
+                <ol className="booking-steps">
+                  <li>
+                    <span className="booking-step-number">1</span>
+                    <div>
+                      <strong>Remplissez le formulaire</strong>
+                      <p>Sélectionnez le service, la date et l'heure souhaités.</p>
+                    </div>
+                  </li>
+                  <li>
+                    <span className="booking-step-number">2</span>
+                    <div>
+                      <strong>Envoyez votre demande</strong>
+                      <p>Votre demande est transmise à notre équipe qualité.</p>
+                    </div>
+                  </li>
+                  <li>
+                    <span className="booking-step-number">3</span>
+                    <div>
+                      <strong>Confirmation</strong>
+                      <p>Nous vous répondrons sous 48h par e-mail.</p>
+                    </div>
+                  </li>
+                </ol>
+              </div>
+
+              <div className="booking-info-box">
+                <h3><span aria-hidden="true">🔒</span> Confidentialité garantie</h3>
+                <p>Vos données sont traitées de manière strictement confidentielle, conformément au RGPD.</p>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
     </>
