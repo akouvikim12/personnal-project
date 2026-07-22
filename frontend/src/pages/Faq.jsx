@@ -11,7 +11,7 @@ function Faq() {
           <p>Retrouvez les réponses aux questions les plus courantes concernant nos analyses et nos rendez-vous.</p>
         </div>
         <div className="faq-visual">
-          <img src="/images/bg-faq.jpg" alt="Laboratoire" className="faq-image" />
+          <img src="/images/faq1.png" alt="Laboratoire" className="faq-image" />
           <div className="faq-card">
             <p className="faq-card-label">QUESTIONS COURANTES</p>
             <FaqAccordion />

@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -10,9 +10,13 @@ import Faq from './pages/Faq';
 import './App.css';
 
 function App() {
+  const { pathname } = useLocation();
+  // La page À propos affiche sa propre navigation à l'intérieur du cadre en verre du hero.
+  const hideGlobalHeader = pathname === '/a-propos';
+
   return (
     <>
-      <Header />
+      {!hideGlobalHeader && <Header />}
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
