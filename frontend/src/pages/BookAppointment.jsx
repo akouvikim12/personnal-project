@@ -47,130 +47,175 @@ function BookAppointment() {
   };
 
   return (
-    <>
-      <section className="page-header">
-        <div className="container">
-          <h1>Prendre rendez-vous</h1>
-          <p>Décrivez votre besoin, nous vous répondrons sous 48h avec une confirmation par e-mail.</p>
-        </div>
-      </section>
-      <section className="section">
-        <div className="container">
-          {sent && (
-            <div className="alert alert-success">
-              Votre demande de rendez-vous a bien été enregistrée. Une confirmation vous sera envoyée par e-mail sous 48h.
+    <section className="appointment-layout">
+      <aside className="appointment-intro">
+        <div className="appointment-intro-overlay" />
+        <div className="appointment-intro-content">
+          <h1>
+            Planifiez votre
+            <br />
+            rendez-vous
+          </h1>
+          <p>
+            Décrivez votre besoin, nous vous répondrons sous 48h avec une confirmation
+            par e-mail.
+          </p>
+
+          <div className="appointment-benefits">
+            <div className="appointment-benefit">
+              <span className="appointment-benefit-icon" aria-hidden="true">👤</span>
+              <strong>Expertise reconnue</strong>
             </div>
-          )}
-          {error && <div className="alert alert-error">{error}</div>}
-
-          <div className="booking-layout">
-            <form className="form-card" onSubmit={handleSubmit}>
-              <div className="booking-section">
-                <h2 className="booking-section-title">
-                  <span aria-hidden="true">👤</span> Informations personnelles
-                </h2>
-                <div className="grid grid-2">
-                  <label>Nom complet
-                    <input type="text" name="contact_name" value={form.contact_name} onChange={handleChange} required />
-                  </label>
-                  <label>E-mail
-                    <input type="email" name="contact_email" value={form.contact_email} onChange={handleChange} required />
-                  </label>
-                  <label>Téléphone
-                    <input type="tel" name="contact_phone" value={form.contact_phone} onChange={handleChange} />
-                  </label>
-                  <label>Laboratoire / organisation
-                    <input type="text" name="laboratory_name" value={form.laboratory_name} onChange={handleChange} />
-                  </label>
-                  <label>Pays
-                    <input type="text" name="country" value={form.country} onChange={handleChange} />
-                  </label>
-                </div>
-              </div>
-
-              <div className="booking-section">
-                <h2 className="booking-section-title">
-                  <span aria-hidden="true">🔬</span> Service souhaité
-                </h2>
-                <div className="grid grid-2">
-                  <label>Service souhaité
-                    <select name="service" value={form.service} onChange={handleChange} required>
-                      <option value="">-- Choisir --</option>
-                      {services.map((s) => (
-                        <option key={s.id} value={s.id}>{s.name}</option>
-                      ))}
-                    </select>
-                  </label>
-                  <label>Mode de rendez-vous
-                    <select name="mode" value={form.mode} onChange={handleChange} required>
-                      <option value="online">En ligne / visioconférence</option>
-                      <option value="phone">Téléphone</option>
-                      <option value="onsite">Sur place</option>
-                    </select>
-                  </label>
-                </div>
-              </div>
-
-              <div className="booking-section">
-                <h2 className="booking-section-title">
-                  <span aria-hidden="true">📅</span> Date &amp; heure
-                </h2>
-                <div className="grid grid-2">
-                  <label>Date souhaitée
-                    <input type="date" name="requested_date" value={form.requested_date} onChange={handleChange} required />
-                  </label>
-                  <label>Heure souhaitée
-                    <input type="time" name="requested_time" value={form.requested_time} onChange={handleChange} required />
-                  </label>
-                </div>
-              </div>
-
-              <label>Votre besoin
-                <textarea name="message" rows="4" value={form.message} onChange={handleChange} placeholder="Décrivez brièvement votre besoin..." />
-              </label>
-              <p className="form-note">Merci de ne transmettre aucune donnée d'analyse ou information confidentielle via ce formulaire.</p>
-              <button type="submit" className="btn btn-primary btn-lg">Envoyer ma demande</button>
-            </form>
-
-            <aside className="booking-sidebar">
-              <div className="booking-steps-card">
-                <h3 className="booking-sidebar-title">
-                  <span aria-hidden="true">📋</span> Comment ça marche
-                </h3>
-                <ol className="booking-steps">
-                  <li>
-                    <span className="booking-step-number">1</span>
-                    <div>
-                      <strong>Remplissez le formulaire</strong>
-                      <p>Sélectionnez le service, la date et l'heure souhaités.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <span className="booking-step-number">2</span>
-                    <div>
-                      <strong>Envoyez votre demande</strong>
-                      <p>Votre demande est transmise à notre équipe qualité.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <span className="booking-step-number">3</span>
-                    <div>
-                      <strong>Confirmation</strong>
-                      <p>Nous vous répondrons sous 48h par e-mail.</p>
-                    </div>
-                  </li>
-                </ol>
-              </div>
-
-              <div className="booking-info-box">
-                <h3><span aria-hidden="true">🔒</span> Confidentialité garantie</h3>
-                <p>Vos données sont traitées de manière strictement confidentielle, conformément au RGPD.</p>
-              </div>
-            </aside>
+            <div className="appointment-benefit">
+              <span className="appointment-benefit-icon" aria-hidden="true">⚡</span>
+              <strong>Réponse rapide</strong>
+            </div>
+            <div className="appointment-benefit">
+              <span className="appointment-benefit-icon" aria-hidden="true">🎯</span>
+              <strong>Solutions sur mesure</strong>
+            </div>
           </div>
         </div>
+      </aside>
+
+      <section className="appointment-form-card">
+        <h2>Vos informations</h2>
+
+        {sent && (
+          <div className="alert alert-success">
+            Votre demande de rendez-vous a bien été enregistrée. Une confirmation vous sera envoyée par e-mail sous 48h.
+          </div>
+        )}
+        {error && <div className="alert alert-error">{error}</div>}
+
+        <form onSubmit={handleSubmit}>
+          <div className="appointment-grid">
+            <div className="appointment-field">
+              <label htmlFor="contact_name">Nom complet</label>
+              <input
+                id="contact_name"
+                name="contact_name"
+                type="text"
+                placeholder="Votre nom"
+                value={form.contact_name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="appointment-field">
+              <label htmlFor="contact_email">E-mail</label>
+              <input
+                id="contact_email"
+                name="contact_email"
+                type="email"
+                placeholder="Votre e-mail"
+                value={form.contact_email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="appointment-grid">
+            <div className="appointment-field">
+              <label htmlFor="contact_phone">Téléphone</label>
+              <input
+                id="contact_phone"
+                name="contact_phone"
+                type="tel"
+                placeholder="Votre numéro"
+                value={form.contact_phone}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="appointment-field">
+              <label htmlFor="laboratory_name">Laboratoire / organisation</label>
+              <input
+                id="laboratory_name"
+                name="laboratory_name"
+                type="text"
+                placeholder="Nom de votre laboratoire / organisation"
+                value={form.laboratory_name}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="appointment-field">
+            <label htmlFor="service">Service souhaité</label>
+            <select id="service" name="service" value={form.service} onChange={handleChange} required>
+              <option value="">Sélectionnez un service</option>
+              {services.map((s) => (
+                <option key={s.id} value={s.id}>{s.name}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="appointment-grid">
+            <div className="appointment-field">
+              <label htmlFor="mode">Mode de rendez-vous</label>
+              <select id="mode" name="mode" value={form.mode} onChange={handleChange} required>
+                <option value="online">En ligne / visioconférence</option>
+                <option value="phone">Téléphone</option>
+                <option value="onsite">Sur place</option>
+              </select>
+            </div>
+            <div className="appointment-field">
+              <label htmlFor="country">Pays</label>
+              <input
+                id="country"
+                name="country"
+                type="text"
+                placeholder="Votre pays"
+                value={form.country}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="appointment-grid">
+            <div className="appointment-field">
+              <label htmlFor="requested_date">Date souhaitée</label>
+              <input
+                id="requested_date"
+                name="requested_date"
+                type="date"
+                value={form.requested_date}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="appointment-field">
+              <label htmlFor="requested_time">Heure souhaitée</label>
+              <input
+                id="requested_time"
+                name="requested_time"
+                type="time"
+                value={form.requested_time}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="appointment-field">
+            <label htmlFor="message">Votre besoin</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Décrivez brièvement votre besoin..."
+              rows="5"
+              value={form.message}
+              onChange={handleChange}
+            />
+          </div>
+
+          <p className="form-note">Merci de ne transmettre aucune donnée d'analyse ou information confidentielle via ce formulaire.</p>
+
+          <button type="submit" className="appointment-submit">Envoyer ma demande</button>
+        </form>
       </section>
-    </>
+    </section>
   );
 }
 

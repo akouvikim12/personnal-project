@@ -588,90 +588,112 @@ blockquote { font-size: 1.4rem; color: var(--navy); font-style: italic; border-l
 }
 .form-note { color: var(--muted); font-size: .85rem; }
 
-.booking-layout {
+.appointment-layout {
+    width: 100%;
+    min-height: calc(100vh - 92px);
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2.5rem;
-    align-items: start;
+    grid-template-columns: minmax(320px, .72fr) minmax(560px, 1.28fr);
+    align-items: stretch;
 }
-.booking-section { margin-top: 2.5rem; }
-.booking-section:first-child { margin-top: 0; }
-.booking-section-title {
-    display: flex;
-    align-items: center;
-    gap: .6rem;
-    margin: 0 0 1.5rem;
-    padding-bottom: .75rem;
-    border-bottom: 1px solid var(--border);
-    color: var(--navy);
-    font-size: .85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .06em;
+.appointment-intro {
+    position: relative;
+    min-height: 700px;
+    overflow: hidden;
+    background: url('/images/imag-microp.png') center bottom / cover no-repeat;
 }
-.booking-sidebar {
-    position: sticky;
-    top: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+.appointment-intro-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 36, 56, .82) 0%, rgba(15, 36, 56, .8) 45%, rgba(15, 36, 56, .3) 100%);
 }
-.booking-steps-card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.75rem;
+.appointment-intro-content {
+    position: relative;
+    z-index: 2;
+    max-width: 430px;
+    padding: 4.5rem 3rem;
+    color: #fff;
 }
-.booking-sidebar-title {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    margin: 0 0 1.5rem;
-    color: var(--navy);
-    font-size: 1rem;
-}
-.booking-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+.appointment-intro-content h1 {
     margin: 0;
-    padding: 0;
-    list-style: none;
+    color: #fff;
+    font-size: clamp(2.4rem, 3.6vw, 3.4rem);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -.03em;
 }
-.booking-steps li { display: flex; align-items: flex-start; gap: 1rem; }
-.booking-step-number {
+.appointment-intro-content p {
+    margin: 1.75rem 0 0;
+    color: rgba(255, 255, 255, .88);
+    font-size: 1.05rem;
+    line-height: 1.55;
+}
+.appointment-benefits { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.75rem; }
+.appointment-benefit { display: flex; align-items: center; gap: 1rem; }
+.appointment-benefit-icon {
     flex-shrink: 0;
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    border: 1px solid var(--teal-light);
     border-radius: 50%;
-    background: var(--teal);
+    color: var(--teal-light);
+    font-size: 1.1rem;
+}
+.appointment-benefit strong { color: #fff; font-size: 1rem; font-weight: 600; }
+.appointment-form-card {
+    padding: 3rem 3rem 2.5rem;
+    background: #fff;
+}
+.appointment-form-card h2 { margin: 0 0 1.75rem; color: var(--navy); font-size: 1.5rem; }
+.appointment-form-card .alert { margin-bottom: 1.5rem; }
+.appointment-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; }
+.appointment-field { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.5rem; }
+.appointment-field label { color: var(--navy); font-size: .9rem; font-weight: 600; }
+.appointment-field input, .appointment-field select, .appointment-field textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    outline: none;
+    background: #fbfcfd;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: .95rem;
+    transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.appointment-field input, .appointment-field select { height: 48px; padding: 0 .9rem; }
+.appointment-field textarea { min-height: 110px; padding: .8rem .9rem; resize: vertical; }
+.appointment-field input::placeholder, .appointment-field textarea::placeholder { color: var(--muted); }
+.appointment-field input:focus, .appointment-field select:focus, .appointment-field textarea:focus {
+    border-color: var(--teal);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(14, 124, 134, .12);
+}
+.appointment-submit {
+    width: 100%;
+    margin-top: .5rem;
+    padding: 1rem 1.5rem;
+    border: 0;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-light));
     color: #fff;
+    font-size: 1.05rem;
     font-weight: 700;
-    font-size: .95rem;
+    cursor: pointer;
+    box-shadow: 0 13px 27px rgba(14, 124, 134, .22);
+    transition: transform .25s ease, filter .25s ease, box-shadow .25s ease;
 }
-.booking-steps strong { display: block; margin-bottom: .25rem; color: var(--navy); font-size: .95rem; }
-.booking-steps p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.5; }
-.booking-info-box {
-    background: rgba(14, 124, 134, .08);
-    border: 1px solid rgba(14, 124, 134, .25);
-    border-radius: var(--radius);
-    padding: 1.5rem;
+.appointment-submit:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 17px 33px rgba(14, 124, 134, .3); }
+@media (max-width: 940px) {
+    .appointment-layout { grid-template-columns: 1fr; min-height: auto; }
+    .appointment-intro { min-height: 420px; }
+    .appointment-form-card { padding: 2.5rem 1.75rem; }
 }
-.booking-info-box h3 {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    margin: 0 0 .5rem;
-    color: var(--navy);
-    font-size: .95rem;
-}
-.booking-info-box p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.5; }
-@media (max-width: 900px) {
-    .booking-layout { grid-template-columns: 1fr; }
-    .booking-sidebar { position: static; }
+@media (max-width: 600px) {
+    .appointment-grid { grid-template-columns: 1fr; gap: 0; margin-bottom: 0; }
+    .appointment-intro-content { padding: 3rem 1.5rem; }
+    .appointment-form-card { padding: 2rem 1.25rem; }
 }
 
 .contact-hero {
@@ -730,7 +752,6 @@ blockquote { font-size: 1.4rem; color: var(--navy); font-style: italic; border-l
 .computer-screen {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
     padding: 13px 13px 16px;
     overflow: hidden;
     border: 3px solid #111215;
@@ -751,7 +772,6 @@ blockquote { font-size: 1.4rem; color: var(--navy); font-style: italic; border-l
 }
 .screen-page {
     width: 100%;
-    height: 100%;
     overflow: hidden;
     border-radius: 16px 16px 3px 3px;
     background:
@@ -774,7 +794,6 @@ blockquote { font-size: 1.4rem; color: var(--navy); font-style: italic; border-l
 .screen-menu { display: flex; align-items: center; gap: 26px; }
 .screen-menu span { color: rgba(255, 255, 255, .86); font-size: 12px; white-space: nowrap; }
 .screen-contact {
-    height: calc(100% - 65px);
     display: grid;
     grid-template-columns: .82fr 1px 1fr .75fr;
     align-items: center;
@@ -800,7 +819,7 @@ blockquote { font-size: 1.4rem; color: var(--navy); font-style: italic; border-l
     background: rgba(5, 44, 64, .6);
     font-size: 13px;
 }
-.screen-separator { width: 1px; height: 80%; background: linear-gradient(transparent, rgba(118, 153, 182, .55), transparent); }
+.screen-separator { width: 1px; height: 280px; align-self: center; background: linear-gradient(transparent, rgba(118, 153, 182, .55), transparent); }
 .screen-form { width: 100%; }
 .screen-field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
 .screen-field label { color: rgba(255, 255, 255, .9); font-size: 11px; }
@@ -835,7 +854,7 @@ blockquote { font-size: 1.4rem; color: var(--navy); font-style: italic; border-l
 .form-message { margin-top: 10px; font-size: 10px; }
 .form-success { color: var(--teal-light); }
 .form-error { color: #ff8888; }
-.screen-picture { width: 100%; height: 88%; overflow: hidden; border-radius: 90px 90px 0 0; background: #dce9ee; }
+.screen-picture { width: 100%; height: 320px; align-self: center; overflow: hidden; border-radius: 90px 90px 0 0; background: #dce9ee; }
 .screen-picture img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; }
 .computer-base {
     position: relative;

@@ -19,6 +19,7 @@ function PhotoGridItem({ photo, index }) {
       ref={ref}
       src={photo.src}
       alt={photo.alt}
+      loading="lazy"
       className={`photo-grid-img${isVisible ? ' is-visible' : ''}`}
       style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
     />

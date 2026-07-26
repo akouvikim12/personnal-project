@@ -117,7 +117,7 @@ function Testimonials() {
 
         <div className="testimonials-card" key={activeIndex}>
           {active.photo ? (
-            <img src={active.photo} alt={active.name} className="testimonials-avatar-photo" />
+            <img src={active.photo} alt={active.name} loading="lazy" className="testimonials-avatar-photo" />
           ) : (
             <div className="testimonials-avatar" aria-hidden="true">{getInitials(active.name)}</div>
           )}
@@ -131,7 +131,7 @@ function Testimonials() {
       </div>
 
       <div className="testimonials-photo">
-        <img src="/images/acc3.png" alt="Laboratoire LabQuality" className="testimonials-photo-img" />
+        <img src="/images/acc3.png" alt="Laboratoire LabQuality" loading="lazy" className="testimonials-photo-img" />
         <div className="testimonials-rating-badge">
           <span className="testimonials-rating-number">{AVERAGE_RATING}</span>
           <span className="testimonials-rating-stars" aria-hidden="true">{AVERAGE_RATING_STARS}</span>
@@ -142,6 +142,7 @@ function Testimonials() {
                 key={item.name}
                 src={item.photo}
                 alt={item.name}
+                loading="lazy"
                 className="testimonials-mini-avatar"
               />
             ))}
