@@ -70,6 +70,62 @@ Pour recharger ces données de test :
 python manage.py shell < seed_demo_data.py
 ```
 
+## 🔗 Prévisualisation locale avec ngrok
+
+Pour partager temporairement le design du site en local (avant l'hébergement final), on utilise **ngrok** pour créer un tunnel public vers le serveur de dev.
+
+### Prérequis
+- [ngrok](https://ngrok.com/download) installé
+- Compte ngrok (gratuit) avec authtoken configuré
+
+### Configuration initiale (une seule fois)
+
+1. Télécharger ngrok et l'extraire
+2. Récupérer son authtoken sur le dashboard ngrok (`Your Authtoken`)
+3. Configurer le token :
+   ```bash
+   ngrok config add-authtoken <TON_TOKEN>
+   ```
+
+### Autoriser le host ngrok dans Vite
+
+Vite bloque par défaut les requêtes venant d'hosts inconnus (sécurité).
+Il faut ajouter le host ngrok dans `frontend/vite.config.js` :
+
+```js
+export default defineConfig({
+  server: {
+    allowedHosts: ['pulsate-maximize-penalize.ngrok-free.dev']
+  },
+  // ... reste de la config
+})
+```
+
+> ⚠️ Le lien ngrok change à chaque nouveau lancement (sur le plan gratuit),
+> il faut donc mettre à jour `allowedHosts` à chaque fois qu'on relance ngrok.
+
+### Lancer la prévisualisation
+
+1. **Terminal 1** — lancer le frontend :
+   ```bash
+   npm run dev
+   ```
+   → tourne sur `http://localhost:5173`
+
+2. **Terminal 2** — lancer le tunnel ngrok :
+   ```bash
+   ngrok http 5173
+   ```
+   → génère un lien public du type `https://xxxx-xxxx.ngrok-free.dev`
+
+3. Partager le lien généré avec la personne qui doit voir le site
+
+### Notes
+- Les deux terminaux doivent rester ouverts tant que le lien est utilisé
+- Le plan gratuit ngrok n'autorise qu'**un seul tunnel actif à la fois**
+- Cette méthode expose uniquement le **frontend** (le backend Django sur
+  le port 8000 n'est pas accessible via ce lien)
+
 ## Pages du site public
 
 | URL | Description |
